@@ -1,6 +1,4 @@
-function ProjectForm({ onChangeInput, onSaveProject, data }) {
-
-
+function ProjectForm({ onChangeInput, onSaveProject, onCancelProject, data }) {
 
     return(
         <div>
@@ -36,7 +34,7 @@ function ProjectForm({ onChangeInput, onSaveProject, data }) {
                 />
             </p>
             <button className="m-1" onClick={onSaveProject}>Save</button>
-            <button className="m-1">Cancel</button>
+            <button className="m-1" onClick={onCancelProject}>Cancel</button>
         </div>
     )
 }
