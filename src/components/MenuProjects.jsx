@@ -1,15 +1,27 @@
 import NoProjectsPng from '../assets/no-projects.png';
+import Button from './Button';
 
 function MenuProjects({ onCreateProject }) {
     return(
-        <div className="flex flex-row-reverse basis-2/3">
-            <div className="flex flex-col">
-                <img src={NoProjectsPng} alt="NoProjectsPng" className="w-28"/>
-                <h3>No Project Selected</h3>
-                <p>Select a project or get started with a new one</p>
-                <button onClick={onCreateProject}>Create New Project</button>
-            </div>
-
+        <div className="mt-2 text-center w-2/3">
+            <img 
+                src={NoProjectsPng} 
+                alt="No Projects Png" 
+                className="w-16 h-16 object-contain mx-auto"
+            />
+            <h2 className="text-xl font-bold text-stone-500 my-4">No Project Selected</h2>
+            <p className="text-stone-400 mb-4">Select a project or get started with a new one</p>
+            <p className="mt-8">
+                <Button
+                    onClick={onCreateProject}
+                >
+                    Create New Project
+                </Button>
+                {/* <button 
+                    className=""
+                    onClick={onCreateProject}>Create New Project
+                </button> */}
+            </p>
         </div>
     );
 };

@@ -1,75 +1,34 @@
-import { useRef, useState } from "react";
+import Tasks from "./Tasks";
 
-function ShowProject({ project, onDeleteProject }) {
-    const [currentTask, setCurrentTask] = useState({
-        content: '',
+function ShowProject({ project, onDeleteProject, onAddTask, onDeleteTask, tasks }) {
+
+    const formattedDate = new Date(project.dueDate).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
     });
 
-    const tasksList = useRef([]);
-
-    function handleInputTask(e) {
-        const {name, value} = e.target;
-
-        setCurrentTask({
-            [name]: value,
-        });
-    }
-
-    function handleAddTask() {
-        tasksList.current.push(currentTask);
-        setCurrentTask({
-            content: '',
-        });
-
-        console.log(tasksList.current);
-    }
-
-    function handleDeleteTask(task) {
-        const taskIndex = tasksList.current.indexOf(task);
-        tasksList.current.splice(taskIndex, 1);
-
-        setCurrentTask({
-            content: '',
-        });
-    }
-
     return(
-        <>  
-            <div id={`project ${project.title}`} >
-                <hr/>
-                <button onClick={() => onDeleteProject(project)}>Delete</button>
-                <h2>{project.title}</h2>
-                <p>{project.date}</p>
-                <p>{project.description}</p>
-                <hr/>
-                <h2>Tasks</h2>
-                <p>
-                    <input 
-                        type="text" 
-                        name="content" 
-                        id="task"
-                        onChange={handleInputTask}
-                        value={currentTask.content}
-                    />
-                    <button onClick={handleAddTask}>Add Task</button>
-                </p>
-                {tasksList.current.length !== 0
-                    ?
-                    tasksList.current.map((task, index) => 
-                        <div key={index} id={`task${index}`}>
-                            <p>{task.content}</p>
-                            <button 
-                                onClick={() => handleDeleteTask(task)}
-                            >
-                                Clear
-                            </button>
-                        </div>
-                    )
-                    :
-                        <p>This project does not have any tasks yet.</p>
-                }
-            </div>
-        </>
+        <div className="w-[35rem] mt-16">  
+            <header className="pb-4 mb-4 border-b-2 border-stone-300">
+                <div className="flex items-center justify-between">
+                    <h1 className="text-3xl font-bold text-stone-600 mb-2">{project.title}</h1>
+                    <button 
+                        className="text-stone-600 hover:text-stone-950" 
+                        onClick={onDeleteProject}
+                    >
+                        Delete
+                    </button>
+                </div>
+                <p className="mb-4 text-stone-400">{formattedDate}</p>
+                <p className="text-stone-600 whitespace-pre-wrap">{project.description}</p>
+            </header>
+            <Tasks
+                onAdd={onAddTask}
+                onDelete={onDeleteTask}
+                tasks={tasks}
+            />
+        </div>
     )
 }
 
